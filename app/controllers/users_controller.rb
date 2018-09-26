@@ -9,6 +9,7 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
+    @reviews = @user.reviews
   end
 
   def new
@@ -25,7 +26,7 @@ class UsersController < ApplicationController
     end
   end
 
-  def edit    
+  def edit
   end
 
   def update

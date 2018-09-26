@@ -14,18 +14,14 @@ describe "A review" do
     movie = Movie.create(movie_attributes)
 
     review = Review.new(review_attributes)
+    
+    user = User.create(user_attributes)
 
     review.movie = movie
 
+    review.user = user
+
     expect(review.valid?).to eq(true)
-  end
-
-  it "requires a name" do
-    review = Review.new(name: "")
-
-    review.valid? # populates errors
-
-    expect(review.errors[:name].any?).to eq(true)
   end
 
   it "requires a comment" do

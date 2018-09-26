@@ -1,6 +1,7 @@
 require 'rails_helper'
 
 describe "A movie" do
+
   it "is a flop if the total gross is less than $50M" do
     movie = Movie.new(total_gross: 40000000.00)
 
@@ -150,8 +151,8 @@ end
 
 it "deletes associated reviews" do
   movie = Movie.create(movie_attributes)
-
-  movie.reviews.create(review_attributes)
+  user = User.create(user_attributes)
+  movie.reviews.create(review_attributes(user_id: user.id))
 
   expect {
     movie.destroy
@@ -160,10 +161,12 @@ end
 
 it "calculates the average number of review stars" do
   movie = Movie.create(movie_attributes)
+  user = User.create(user_attributes)
 
-  movie.reviews.create(review_attributes(stars: 1))
-  movie.reviews.create(review_attributes(stars: 3))
-  movie.reviews.create(review_attributes(stars: 5))
+
+  movie.reviews.create(review_attributes(stars: 1, user_id: user.id))
+  movie.reviews.create(review_attributes(stars: 3, user_id: user.id))
+  movie.reviews.create(review_attributes(stars: 5, user_id: user.id))
 
   expect(movie.average_stars).to eq(3)
 end
