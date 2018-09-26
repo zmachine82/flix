@@ -2,7 +2,7 @@ class MoviesController < ApplicationController
 
   before_action :require_signin, except: [:index, :show]
   before_action :require_admin, except: [:index, :show]
-  
+
 
   def index
     @movies = Movie.released
@@ -10,6 +10,7 @@ class MoviesController < ApplicationController
 
   def show
     @movie = Movie.find(params[:id])
+    @fans = @movie.fans
   end
 
   def edit
