@@ -1,9 +1,12 @@
+<% content_for(:title, @user.name) %>
+
 <article id="user">
   <header>
     <h1><%= @user.name %></h1>
     <h2><%= mail_to(@user.email) %></h2>
   </header>
 
+<% content_for :side do %>
   <% if @favorite_movies.any? %>
     <h3>Favorite Movies</h3>
     <ul>
@@ -14,6 +17,7 @@
      <% end %>
     </ul>
   <% end %>
+<% end %>
 
   <% if @reviews.any? %>
     <h3>Reviews</h3>

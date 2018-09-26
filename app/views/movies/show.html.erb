@@ -1,3 +1,5 @@
+<% content_for(:title, @movie.title) %>
+
 <article id="movie" class="movie">
   <header>
     <%= image_for(@movie) %>
@@ -13,9 +15,7 @@
     <%= @movie.rating %> &bull; <%= @movie.duration %>
   </h3>
 
-  <p>
-    <%= pluralize(@fans.size, 'fan') %>
-  </p>
+
   <% if current_user %>
     <% if @current_favorite %>
       <%= button_to "Unfave", movie_favorite_path(@movie, @current_favorite), method: :delete, class: "button unfave" %>
@@ -24,8 +24,10 @@
     <% end %>
   <% end %>
 
+  <% content_for(:side) do %>
+
   <% if @fans.any? %>
-    <h3>Fans</h3>
+    <h3><%= pluralize(@fans.size, 'Fan') %></h3>
     <ul>
       <% @fans.each do |user| %>
         <li>
@@ -35,6 +37,14 @@
     </ul>
   <% end %>
 
+  <h3>Genres</h3>
+  <ul>
+    <% @genres.each do |genre| %>
+      <li><%= genre.name %></li>
+    <% end %>
+  </ul>
+
+  <% end %>
   <h3>Cast</h3>
   <p>
     <%= @movie.cast %>
@@ -50,12 +60,6 @@
     <%= format_total_gross(@movie) %>
   </p>
 
-  <h3>Genres</h3>
-  <ul>
-    <% @genres.each do |genre| %>
-      <li><%= genre.name %></li>
-    <% end %>
-  </ul>
 
   <h3>Average Reviews</h3>
   <p>
