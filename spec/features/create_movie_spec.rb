@@ -5,8 +5,11 @@ describe "Creating a new movie" do
   before do
     admin = User.create!(user_attributes(admin: true))
     sign_in(admin)
+    @genre1 = Genre.create!(name: "Genre 1")
+    @genre2 = Genre.create!(name: "Genre 2")
+    @genre3 = Genre.create!(name: "Genre 3")
   end
-  
+
   it "saves the movie and shows the new movie's details" do
     visit movies_url
 
@@ -22,6 +25,8 @@ describe "Creating a new movie" do
     fill_in "Director", with: "The ever-creative director"
     fill_in "Duration", with: "123 min"
     fill_in "Image file name", with: "placeholder.png"
+    check(@genre1.name)
+    check(@genre2.name)
     select (Time.now.year - 1).to_s, :from => "movie_released_on_1i"
 
     # If you're taking advantage of the HTML 5 date field in Chrome,
@@ -33,6 +38,9 @@ describe "Creating a new movie" do
     expect(current_path).to eq(movie_path(Movie.last))
 
     expect(page).to have_text('New Movie Title')
+    expect(page).to have_text(@genre1.name)
+    expect(page).to have_text(@genre2.name)
+    expect(page).not_to have_text(@genre3.name)
 
     expect(page).to have_text('Movie successfully created!')
   end
