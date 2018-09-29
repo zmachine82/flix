@@ -11,7 +11,7 @@ describe "Favoriting a movie" do
 
     visit movie_url(movie)
 
-    expect(page).to have_text("0 fans")
+
 
     expect {
       click_button 'Fave'
@@ -20,7 +20,7 @@ describe "Favoriting a movie" do
     expect(current_path).to eq(movie_path(movie))
 
     expect(page).to have_text("Thanks for fav'ing!")
-    expect(page).to have_text("1 fan")
+    expect(page).to have_text("1 Fan")
     expect(page).to have_button("Unfave")
   end
 end

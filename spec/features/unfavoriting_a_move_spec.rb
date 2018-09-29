@@ -12,7 +12,7 @@ describe "Unfavoriting a movie" do
     visit movie_url(movie)
     click_button 'Fave'
 
-    expect(page).to have_text("1 fan")
+    expect(page).to have_text("1 Fan")
 
     expect {
       click_button 'Unfave'
@@ -21,7 +21,7 @@ describe "Unfavoriting a movie" do
     expect(current_path).to eq(movie_path(movie))
 
     expect(page).to have_text("Sorry you unfaved it!")
-    expect(page).to have_text("0 fans")
+    
     expect(page).to have_button("Fave")
   end
 end
